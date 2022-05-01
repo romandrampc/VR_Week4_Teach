@@ -32,7 +32,7 @@ public class PinController : MonoBehaviour
 
   private void OnCollisionEnter(Collision collision)
   {
-    if (collision.gameObject.CompareTag("BowlingBall") && !isPinDown)
+    if (collision.gameObject.CompareTag("BowlingBall") && collision.gameObject.CompareTag("PinBowling") && !isPinDown)
     {
       isCrash = true;
     }

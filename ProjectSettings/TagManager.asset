@@ -6,6 +6,7 @@ TagManager:
   tags:
   - AxeHead
   - BowlingBall
+  - PinBowling
   layers:
   - Default
   - TransparentFX
