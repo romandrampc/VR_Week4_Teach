@@ -11,6 +11,11 @@ public class PinController : MonoBehaviour
 
   private void Start()
   {
+    Init();
+  }
+
+  public void Init()
+  {
     isCrash = false;
     isPinDown = false;
   }
@@ -32,9 +37,10 @@ public class PinController : MonoBehaviour
 
   private void OnCollisionEnter(Collision collision)
   {
-    if (collision.gameObject.CompareTag("BowlingBall") && collision.gameObject.CompareTag("PinBowling") && !isPinDown)
+    if (collision.gameObject.CompareTag("BowlingBall") || collision.gameObject.CompareTag("PinBowling") && !isPinDown)
     {
-      isCrash = true;
+      if (!isPinDown)
+        isCrash = true;
     }
   }
 }
