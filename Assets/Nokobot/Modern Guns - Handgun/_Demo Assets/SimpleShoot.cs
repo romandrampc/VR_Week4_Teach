@@ -31,7 +31,7 @@ public class SimpleShoot : MonoBehaviour
     }
 
 
-  public void TriggerShoot()
+  public void Update()
   {
     gunAnimator.SetTrigger("Fire");
   }
