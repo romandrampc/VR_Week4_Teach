@@ -10,22 +10,21 @@ public class GunGrabManager : MonoBehaviour
   public Color OutlineColorHighlighted;
   public Color OutlineColorOutOfRange;
 
-  void OnTriggerEnter(Collider otherCollider)
-  {
-    GunDistanceGrabable dg = otherCollider.GetComponentInParent<GunDistanceGrabable>();
-    if (dg)
+    private void OnTriggerEnter(Collider other)
     {
-      dg.InRange = true;
+        GunDistanceGrabable dg = other.GetComponentInParent<GunDistanceGrabable>();
+        if (dg)
+        {
+            dg.InRange = true;
+        }
     }
 
-  }
-
-  void OnTriggerExit(Collider otherCollider)
-  {
-    GunDistanceGrabable dg = otherCollider.GetComponentInParent<GunDistanceGrabable>();
-    if (dg)
+    private void OnTriggerExit(Collider other)
     {
-      dg.InRange = false;
+        GunDistanceGrabable dg = other.GetComponentInParent<GunDistanceGrabable>();
+        if (dg)
+        {
+            dg.InRange = false;
+        }
     }
-  }
 }
