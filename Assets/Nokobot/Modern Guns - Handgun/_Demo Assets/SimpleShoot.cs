@@ -30,11 +30,10 @@ public class SimpleShoot : MonoBehaviour
             gunAnimator = GetComponentInChildren<Animator>();
     }
 
-
-  public void TriggerShoot()
-  {
-    gunAnimator.SetTrigger("Fire");
-  }
+    public void TriggerShoot()
+    {
+        gunAnimator.SetTrigger("Fire");
+    }
 
     //This function creates the bullet behavior
     void Shoot()

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Bottle : MonoBehaviour
 {
-  private void OnCollisionEnter(Collision collision)
-  {
-    if (collision.gameObject.CompareTag("Bullet"))
+
+    private void OnCollisionEnter(Collision collision)
     {
-      GunGameManager.Instance.bottleHit(this);
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            GunGameManager.Instance.bottleHit(this);
+        }
     }
-  }
 }
