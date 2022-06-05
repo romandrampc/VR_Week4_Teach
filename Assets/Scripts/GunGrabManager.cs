@@ -12,6 +12,8 @@ public class GunGrabManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!GunGameManager.Instance.isPlaying) return;
+
         GunDistanceGrabable dg = other.GetComponentInParent<GunDistanceGrabable>();
         if (dg)
         {

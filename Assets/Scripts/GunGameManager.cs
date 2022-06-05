@@ -11,12 +11,18 @@ public class GunGameManager : MonoBehaviour
     public float gameTime;
     public GameObject resultPanel;
     public GameObject timePanel;
+    public GameObject StartPanel;
     public Text scoreText;
     public Text timeText;
+    public LaserPointer laserPointer;
+
+    float waitTimeToStart = 5.0f;
 
     float countDownGameTimer;
-    bool isPlaying = false;
+    internal bool isPlaying = false;
+    bool isCountDownStart = false;
     float score;
+
     List<Bottle> bottles = new List<Bottle>();
 
     private void Awake()
@@ -31,11 +37,14 @@ public class GunGameManager : MonoBehaviour
         }
 
         resultPanel.SetActive(false);
-        timePanel.SetActive (true);
+        timePanel.SetActive (false);
+        StartPanel.SetActive(true);
         score = 0;
         isPlaying = false;
-        countDownGameTimer = gameTime;
-        timeText.text = "00:00";
+        isCountDownStart = false;
+        countDownGameTimer = waitTimeToStart;
+
+        laserPointer.laserBeamBehavior = LaserPointer.LaserBeamBehavior.OnWhenHitTarget;
 
         Bottle[]  bottleObj = GameObject.FindObjectsOfType<Bottle>();
         foreach(Bottle b in bottleObj)
@@ -44,13 +53,16 @@ public class GunGameManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        StartCoroutine(WaitForStartGame());
-    }
+  public void ClickToStartGame()
+  {
+    countDownGameTimer = waitTimeToStart;
+    isCountDownStart = true;
+    timePanel.SetActive(true);
+
+  }
 
 
-    void Update() {
+  void Update() {
         if (isPlaying) {
             if (countDownGameTimer > 0) {
                 countDownGameTimer -= Time.deltaTime;
@@ -63,6 +75,21 @@ public class GunGameManager : MonoBehaviour
                 StartCoroutine(WaitForReloadGame());
             }
         }
+    else if (isCountDownStart)
+    {
+      if (countDownGameTimer > 0)
+      {
+        countDownGameTimer -= Time.deltaTime;
+        updateTimer(countDownGameTimer);
+      }
+      else
+      {
+        timeText.text = "00:00";
+        countDownGameTimer = gameTime;
+        isCountDownStart = false;
+        isPlaying = true;
+      }
+    }
     }
 
     void updateTimer(float currentTime) {
@@ -92,14 +119,7 @@ public class GunGameManager : MonoBehaviour
         StartCoroutine(WaitForReloadGame());
     }
 
-    IEnumerator WaitForStartGame()
-    {
-        yield return new WaitForSeconds(5);
-
-        isPlaying = true;
-    }
-
-    IEnumerator WaitForReloadGame()
+  IEnumerator WaitForReloadGame()
     {
         yield return new WaitForSeconds(10);
 
